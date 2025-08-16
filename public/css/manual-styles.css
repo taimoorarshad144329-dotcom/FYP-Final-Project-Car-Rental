@@ -105,6 +105,7 @@ body {
   font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
   margin-left: 50px;
   margin-right: 0px;
+  text-decoration: none !important;
 }
 
 .register:hover {
@@ -432,6 +433,15 @@ body {
   min-height: auto;
   margin: 0;
   padding: 20px;
+  transition: all 0.5s ease;
+}
+
+.subscribe-bar.converted {
+  background-color: #e63946 !important;
+  background: linear-gradient(90deg, #e63946 0%, #c1121f 100%) !important;
+  color: white !important;
+  transform: scale(1.02);
+  box-shadow: 0 4px 20px rgba(230, 57, 70, 0.3);
 }
 
 .subscription-container {
@@ -493,6 +503,58 @@ body {
   margin-top: 15px;
   font-size: 0.8rem;
   color: #95a5a6;
+}
+
+/* Subscription success state */
+.subscription-success {
+  background-color: #e63946;
+  color: white;
+  border-radius: 50px;
+  padding: 30px 20px;
+  text-align: center;
+  font-weight: bold;
+  font-size: 1.2rem;
+  animation: fadeInSuccess 0.5s ease-out;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.subscription-success h3 {
+  margin: 0 0 10px 0;
+  font-size: 1.8rem;
+  font-weight: bold;
+}
+
+.subscription-success p {
+  margin: 0;
+  font-size: 1rem;
+  opacity: 0.9;
+}
+
+.subscription-container.success .subscription-title,
+.subscription-container.success .subscription-description,
+.subscription-container.success .email-subscription,
+.subscription-container.success .privacy-note {
+  display: none;
+}
+
+.subscription-container.success::before {
+  content: "Thanks for Subscribing!";
+  display: block;
+  color: white;
+  font-size: 1.5rem;
+  font-weight: bold;
+  animation: fadeInSuccess 0.5s ease-out;
+}
+
+@keyframes fadeInSuccess {
+  from {
+    opacity: 0;
+    transform: scale(0.8);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
 }
 
 /* Popup styles */

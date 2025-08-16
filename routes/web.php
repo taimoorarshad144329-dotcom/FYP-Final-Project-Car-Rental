@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\ContactController;
 
 // Main routes
 Route::get('/', function () {
@@ -25,6 +26,8 @@ Route::get('/contact-us', function () {
     return view('contactus');
 });
 
+Route::post('/subscribe', [ContactController::class, 'subscribe'])->name('subscribe');
+
 Route::get('/rent-now', function () {
     return view('rentnow');
 });
@@ -36,6 +39,7 @@ Route::get('/my-account', function () {
 
 // Authentication routes
 Route::post('/login', [AuthController::class, 'login'])->name('login');
+Route::post('/register', [AuthController::class, 'register'])->name('register');
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
 // Additional routes

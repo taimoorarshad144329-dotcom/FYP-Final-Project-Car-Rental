@@ -35,78 +35,7 @@
             </div>
         </div>
     </div>
-      <!-- Registration Modal -->
-      <div class="modal fade" id="registrationModal" tabindex="-1" aria-labelledby="registrationModalLabel" aria-hidden="true">
-          <div class="modal-dialog">
-              <div class="modal-content">
-                  <div class="modal-header">
-                      <h5 class="modal-title" id="registrationModalLabel">Create Your Account</h5>
-                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                  </div>
-                  <div class="modal-body">
-                      <form>
-                          <div class="mb-3">
-                              <input type="text" class="form-control" id="registerName" placeholder="Full Name" required>
-                          </div>
-                          <div class="mb-3">
-                              <input type="email" class="form-control" id="registerEmail" placeholder="Email Address" required>
-                          </div>
-                          <div class="mb-3">
-                              <input type="password" class="form-control" id="registerPassword" placeholder="Password" required>
-                          </div>
-                          <div class="mb-3">
-                              <input type="password" class="form-control" id="confirmPassword" placeholder="Confirm Password" required>
-                          </div>
-                          <div class="mb-3 form-check">
-                              <input type="checkbox" class="form-check-input" id="termsCheck" required>
-                              <label class="form-check-label" for="termsCheck">I agree to the Terms & Conditions</label>
-                          </div>
-                          <button type="submit" class="btn btn-primary">Register</button>
-                      </form>
-                  </div>
-                  <div class="modal-footer">
-                    <p class="text-center w-100">Already have an account? 
-                        <a href="#" style="color: #3498db;" 
-                           data-bs-toggle="modal" 
-                           data-bs-target="#loginModal"
-                           data-bs-dismiss="modal">Login</a>
-                    </p>
-                </div>
-              </div>
-          </div>
-      </div>
-      <!-- Login Modal -->
-<div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="loginModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="loginModalLabel">Login to Your Account</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <form>
-                    <div class="mb-3">
-                        <input type="email" class="form-control" id="loginEmail" placeholder="Email Address" required>
-                    </div>
-                    <div class="mb-3">
-                        <input type="password" class="form-control" id="loginPassword" placeholder="Password" required>
-                    </div>
-                    <div class="mb-3 form-check">
-                        <input type="checkbox" class="form-check-input" id="rememberMe">
-                        <label class="form-check-label" for="rememberMe">Remember me</label>
-                    </div>
-                    <button type="submit" class="btn btn-primary w-100">Login</button>
-                    <div class="text-center mt-3">
-                        <a href="#" style="color: #3498db;">Forgot password?</a>
-                    </div>
-                </form>
-            </div>
-            <div class="modal-footer">
-                <p class="text-center w-100">Don't have an account? <a href="#" style="color: #3498db;" data-bs-toggle="modal" data-bs-target="#registrationModal">Register</a></p>
-            </div>
-        </div>
-    </div>
-</div>
+@include('components.modals')
       <!-- Bootstrap JS Bundle with Popper -->
       <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 <div class="section">
@@ -694,76 +623,80 @@
     </div>
 </div>
 
-<!-- Your existing modals and scripts -->
-<!-- Registration Modal -->
-<div class="modal fade" id="registrationModal" tabindex="-1" aria-labelledby="registrationModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="registrationModalLabel">Create Your Account</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <form>
-                    <div class="mb-3">
-                        <input type="text" class="form-control" id="registerName" placeholder="Full Name" required>
+<!-- Confirmation Section -->
+<div class="mm-confirmation" id="confirmationSection" style="display: none;">
+    <div class="mm-booking-container">
+        <h2 class="mm-section-title">Booking Confirmation</h2>
+        
+        <div class="row">
+            <div class="col-lg-8 mx-auto">
+                <div class="card">
+                    <div class="card-header text-center bg-success text-white">
+                        <h4><i class="fas fa-check-circle me-2"></i>Booking Request Submitted Successfully!</h4>
                     </div>
-                    <div class="mb-3">
-                        <input type="email" class="form-control" id="registerEmail" placeholder="Email Address" required>
+                    <div class="card-body text-center">
+                        <div class="confirmation-icon mb-4">
+                            <i class="fas fa-car" style="font-size: 4rem; color: #c1121f;"></i>
+                        </div>
+                        
+                        <h5 class="mb-3">Thank you for choosing Malik Motors!</h5>
+                        
+                        <div class="alert alert-info" role="alert">
+                            <h6><i class="fas fa-info-circle me-2"></i>What happens next?</h6>
+                            <p class="mb-0">Our team will review your booking request and contact you within <strong>2-4 hours</strong> to confirm your vehicle availability and finalize the booking details.</p>
+                        </div>
+                        
+                        <div class="row mt-4">
+                            <div class="col-md-6">
+                                <div class="card">
+                                    <div class="card-header">
+                                        <h6>Selected Vehicle</h6>
+                                    </div>
+                                    <div class="card-body">
+                                        <div id="confirmationVehicleDetails">
+                                            <!-- Vehicle details will be populated here -->
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="col-md-6">
+                                <div class="card">
+                                    <div class="card-header">
+                                        <h6>Trip Summary</h6>
+                                    </div>
+                                    <div class="card-body">
+                                        <div id="confirmationTripDetails">
+                                            <!-- Trip details will be populated here -->
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="card mt-4">
+                            <div class="card-header">
+                                <h6>Contact Information</h6>
+                            </div>
+                            <div class="card-body">
+                                <div id="confirmationContactDetails">
+                                    <!-- Contact details will be populated here -->
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="alert alert-warning mt-4" role="alert">
+                            <h6><i class="fas fa-phone me-2"></i>Need immediate assistance?</h6>
+                            <p class="mb-0">Call us at <strong>+92-324-867000</strong> or email <strong>info@malikmotors.com</strong></p>
+                        </div>
+                        
+                        <div class="mt-4">
+                            <a href="{{ url('/') }}" class="btn btn-primary" style="background-color: #c1121f; border-color: #c1121f;">
+                                <i class="fas fa-home me-2"></i>Back to Home
+                            </a>
+                        </div>
                     </div>
-                    <div class="mb-3">
-                        <input type="password" class="form-control" id="registerPassword" placeholder="Password" required>
-                    </div>
-                    <div class="mb-3">
-                        <input type="password" class="form-control" id="confirmPassword" placeholder="Confirm Password" required>
-                    </div>
-                    <div class="mb-3 form-check">
-                        <input type="checkbox" class="form-check-input" id="termsCheck" required>
-                        <label class="form-check-label" for="termsCheck">I agree to the Terms & Conditions</label>
-                    </div>
-                    <button type="submit" class="btn btn-primary">Register</button>
-                </form>
-            </div>
-            <div class="modal-footer">
-                <p class="text-center w-100">Already have an account? 
-                    <a href="#" style="color: #3498db;" 
-                       data-bs-toggle="modal" 
-                       data-bs-target="#loginModal"
-                       data-bs-dismiss="modal">Login</a>
-                </p>
-            </div>
-        </div>
-    </div>
-</div>
-
-<!-- Login Modal -->
-<div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="loginModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="loginModalLabel">Login to Your Account</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <form>
-                    <div class="mb-3">
-                        <input type="email" class="form-control" id="loginEmail" placeholder="Email Address" required>
-                    </div>
-                    <div class="mb-3">
-                        <input type="password" class="form-control" id="loginPassword" placeholder="Password" required>
-                    </div>
-                    <div class="mb-3 form-check">
-                        <input type="checkbox" class="form-check-input" id="rememberMe">
-                        <label class="form-check-label" for="rememberMe">Remember me</label>
-                    </div>
-                    <button type="submit" class="btn btn-primary w-100">Login</button>
-                    <div class="text-center mt-3">
-                        <a href="#" style="color: #3498db;">Forgot password?</a>
-                    </div>
-                </form>
-            </div>
-            <div class="modal-footer">
-                <p class="text-center w-100">Don't have an account? <a href="#" style="color: #3498db;" data-bs-toggle="modal" data-bs-target="#registrationModal">Register</a></p>
+                </div>
             </div>
         </div>
     </div>
@@ -771,35 +704,8 @@
 
 <!-- Bootstrap JS Bundle with Popper -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-<script>
-    document.addEventListener('DOMContentLoaded', function() {
-        // Close registration modal and open login modal
-        document.querySelector('[data-bs-target="#loginModal"]').addEventListener('click', function() {
-            var registrationModal = bootstrap.Modal.getInstance(document.getElementById('registrationModal'));
-            registrationModal.hide();
-        });
-        // Close login modal and open registration modal
-        document.querySelector('[data-bs-target="#registrationModal"]').addEventListener('click', function() {
-            var loginModal = bootstrap.Modal.getInstance(document.getElementById('loginModal'));
-            loginModal.hide();
-        });
-    });
-</script>
-
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            // Close registration modal and open login modal
-            document.querySelector('[data-bs-target="#loginModal"]').addEventListener('click', function() {
-                var registrationModal = bootstrap.Modal.getInstance(document.getElementById('registrationModal'));
-                registrationModal.hide();
-            });
-            
-            // Close login modal and open registration modal
-            document.querySelector('[data-bs-target="#registrationModal"]').addEventListener('click', function() {
-                var loginModal = bootstrap.Modal.getInstance(document.getElementById('loginModal'));
-                loginModal.hide();
-            });
-
             // Set today's date as minimum for date inputs
             const today = new Date().toISOString().split('T')[0];
             document.getElementById('pickupDate').setAttribute('min', today);
@@ -936,8 +842,60 @@
             // Show confirmation section
             document.getElementById('confirmationSection').style.display = 'block';
             
+            // Populate confirmation details
+            populateConfirmationDetails();
+            
             // Scroll to top
             window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // Function to populate confirmation details
+        function populateConfirmationDetails() {
+            // Get vehicle details
+            const vehicleDetails = document.getElementById('selectedVehicleDetails').innerHTML;
+            document.getElementById('confirmationVehicleDetails').innerHTML = vehicleDetails;
+            
+            // Get trip details
+            const pickupLocation = document.getElementById('pickupLocation').value;
+            const pickupDate = document.getElementById('pickupDate').value;
+            const pickupTime = document.getElementById('pickupTime').value;
+            const returnLocation = document.getElementById('returnLocation').value;
+            const returnDate = document.getElementById('returnDate').value;
+            const returnTime = document.getElementById('returnTime').value;
+            
+            document.getElementById('confirmationTripDetails').innerHTML = `
+                <div class="text-start">
+                    <p><strong>Pickup:</strong> ${pickupLocation}</p>
+                    <p><strong>Pickup Date:</strong> ${formatDate(pickupDate)} at ${pickupTime}</p>
+                    <p><strong>Return:</strong> ${returnLocation}</p>
+                    <p><strong>Return Date:</strong> ${formatDate(returnDate)} at ${returnTime}</p>
+                </div>
+            `;
+            
+            // Get contact details
+            const fullName = document.getElementById('fullName').value;
+            const email = document.getElementById('email').value;
+            const phone = document.getElementById('phone').value;
+            const city = document.getElementById('city').value;
+            
+            document.getElementById('confirmationContactDetails').innerHTML = `
+                <div class="text-start">
+                    <p><strong>Name:</strong> ${fullName}</p>
+                    <p><strong>Email:</strong> ${email}</p>
+                    <p><strong>Phone:</strong> ${phone}</p>
+                    <p><strong>City:</strong> ${city}</p>
+                </div>
+            `;
+        }
+
+        // Helper function to format date
+        function formatDate(dateString) {
+            const date = new Date(dateString);
+            return date.toLocaleDateString('en-US', { 
+                year: 'numeric', 
+                month: 'long', 
+                day: 'numeric' 
+            });
         }
 
         // Add click event listeners to all select buttons

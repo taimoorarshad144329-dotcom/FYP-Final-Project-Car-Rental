@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="{{ asset('css/manual-styles.css') }}">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="icon" href="{{ asset('favicon.ico') }}">
+    <link rel="icon" href="{{ asset('images/logo.jpg') }}">
     <style>
         .account-container {
             max-width: 1200px;
@@ -248,7 +248,6 @@
                     <li><a href="#profile" class="active"><i class="fas fa-user"></i> Profile</a></li>
                     <li><a href="#bookings"><i class="fas fa-car"></i> My Bookings</a></li>
                     <li><a href="#settings"><i class="fas fa-cog"></i> Settings</a></li>
-                    <li><a href="#payment"><i class="fas fa-credit-card"></i> Payment Methods</a></li>
                 </ul>
 
                 <form action="{{ route('logout') }}" method="POST">
