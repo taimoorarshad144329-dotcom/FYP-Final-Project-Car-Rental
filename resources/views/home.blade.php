@@ -20,8 +20,8 @@
                 <nav class="navigation">
                     <a href="{{ url('/') }}">Home</a>
                     <a href="{{ url('/about') }}">About</a>
-                    <a href="{{ url('/vehicles') }}">Rental Deals</a>
-                    <a href="{{ url('/contact') }}">Contact Us</a>
+                    <a href="{{ url('/rental-deals') }}">Rental Deals</a>
+                    <a href="{{ url('/contact-us') }}">Contact Us</a>
                     <a href="{{ url('/rent-now') }}">Rent Now</a>
                 </nav>
 
