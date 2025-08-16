@@ -24,7 +24,7 @@
                     <a href="{{ url('/contact-us') }}">Contact Us</a>
                     <a href="{{ url('/rent-now') }}">Rent Now</a>
                 </nav>
-                <button class="register" data-bs-toggle="modal" data-bs-target="#registrationModal">Register</button>
+                <button class="register" data-bs-toggle="modal" data-bs-target="#loginModal">Login</button>
             </div>
         </div>
     </div>
@@ -79,15 +79,16 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <form>
+                    <form method="POST" action="{{ route('login') }}">
+                        @csrf
                         <div class="mb-3">
-                            <input type="email" class="form-control" id="loginEmail" placeholder="Email Address" required>
+                            <input type="email" class="form-control" id="loginEmail" name="email" placeholder="Email Address" required>
                         </div>
                         <div class="mb-3">
-                            <input type="password" class="form-control" id="loginPassword" placeholder="Password" required>
+                            <input type="password" class="form-control" id="loginPassword" name="password" placeholder="Password" required>
                         </div>
                         <div class="mb-3 form-check">
-                            <input type="checkbox" class="form-check-input" id="rememberMe">
+                            <input type="checkbox" class="form-check-input" id="rememberMe" name="remember">
                             <label class="form-check-label" for="rememberMe">Remember me</label>
                         </div>
                         <button type="submit" class="btn btn-primary w-100">Login</button>

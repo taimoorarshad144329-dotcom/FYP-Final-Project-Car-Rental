@@ -18,7 +18,7 @@
             <img src="{{ asset('images/logo.jpg') }}" alt="Malik Motors Logo" class="logo">
             <a href="{{ url('/') }}" class="header-link"><h1>Malik Motors</h1></a>
             
-            <!-- NAVIGATION BAR INSIDE HEADER -->
+            <!-- NAVIGATION BAR-->
             <div class="nav-wrapper">
                 <nav class="navigation">
                     <a href="{{ url('/') }}">Home</a>
@@ -27,7 +27,11 @@
                     <a href="{{ url('/contact-us') }}">Contact Us</a>
                     <a href="{{ url('/rent-now') }}">Rent Now</a>
                 </nav>
-                <button class="register" data-bs-toggle="modal" data-bs-target="#registrationModal">Register</button>
+                @if(Auth::check())
+                    <a href="{{ url('/my-account') }}" class="register">My Account</a>
+                @else
+                    <button class="register" data-bs-toggle="modal" data-bs-target="#loginModal">Login</button>
+                @endif
             </div>
         </div>
     </div>
@@ -108,85 +112,8 @@
 <div class="section">
   100% trusted car rental platform in Pakistan
 </div>
-<!-- <div class="search-container">
-    <h2>Search for Cars</h2>
-    <p>Find the best and most affordable cars</p>
-  
-    <h3 style="color: #c1121f;">Rent a Car</h3>
-    
-    <div class="radio-options">
-        <div class="radio-option">
-            <input type="radio" id="with-driver" name="rental-type" checked>
-            <label for="with-driver">Rent with driver</label>
-        </div>
-        <div class="radio-option">
-            <input type="radio" id="within-city" name="rental-type">
-            <label for="within-city">Within City</label>
-        </div>
-        <div class="radio-option">
-            <input type="radio" id="out-of-city" name="rental-type">
-            <label for="out-of-city">Out of City</label>
-        </div>
-    </div>
-  
-    <hr class="divider">
-  
-    <div class="form-group">
-        <label for="city">City</label>
-        <select id="city" name="city">
-            <option value="">Select your city</option>
-            <option value="gujranwala">Gujranwala</option>
-            <option value="lahore">Lahore</option>
-            <option value="islamabad">Islamabad</option>
-            <option value="rawalpindi">Rawalpindi</option>
-        </select>
-    </div>
-    <div class="form-group">
-        <label for="name">Your Name</label>
-        <input type="name" id="name" name="name">
-    </div>
-    <div class="form-group">
-        <label for="phone">Your Phone no.</label>
-        <input type="tel" id="name" name="phone">
-    </div>
-    <div class="form-group">
-        <label class="question-label">Do you have a driving license?</label>
-        <div class="option-container">
-          <div class="option-item">
-            <input type="radio" id="driver-yes" name="driver-required" value="yes" checked>
-            <label for="driver-yes" class="option-label">Yes</label>
-          </div>
-          <div class="option-item">
-            <input type="radio" id="driver-no" name="driver-required" value="no">
-            <label for="driver-no" class="option-label">No</label>
-          </div>
-        </div>
-      </div>
-    <div class="form-group">
-        <label for="pickup-date">Pickup Date</label>
-        <input type="date" id="pickup-date" name="pickup-date">
-    </div>
-  
-    <div class="form-group">
-        <label for="pickup-time">Pick-up Time</label>
-        <input type="time" id="pickup-time" name="pickup-time">
-    </div>
-  
-    <div class="form-group">
-        <label for="dropoff-date">Dropoff Date</label>
-        <input type="date" id="dropoff-date" name="dropoff-date">
-    </div>
-  
-    <div class="form-group">
-        <label for="dropoff-time">Drop-off Time</label>
-        <input type="time" id="dropoff-time" name="dropoff-time">
-    </div>
-    <button type="submit" class="search-button" style="background-color: #c1121f;">Book a Car</button>
-  </div>
-  <input type="checkbox" id="driver-yes" name="driver-option" value="yes"> -->
-  
   <style>
-    /* Malik Motors Custom Styles */
+    /* Malik Motors Rent now Custom Styles */
     .mm-booking-container {
         max-width: 1200px;
         margin: 0 auto;
@@ -334,29 +261,95 @@
         padding: 20px;
         border-radius: 8px;
     }
+
+    .mm-vehicle-image {
+        width: 100%;
+        height: 200px;
+        object-fit: cover;
+        border-radius: 8px;
+        margin-bottom: 15px;x   
+    }
+
+    .mm-vehicle-content {
+        padding: 0;
+    }
+
+    .mm-vehicle-details {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        margin: 10px 0;
+    }
+
+    .mm-detail-item {
+        display: flex;
+        align-items: center;
+        gap: 5px;
+        font-size: 14px;
+        color: #6c757d;
+    }
+
+    .mm-detail-item i {
+        color: #c1121f;
+    }
+
+    .mm-vehicle-features {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 5px;
+        margin: 10px 0;
+    }
+
+    .mm-feature-badge {
+        background-color: #f8f9fa;
+        color: #495057;
+        padding: 4px 8px;
+        border-radius: 12px;
+        font-size: 12px;
+        font-weight: 500;
+    }
+
+    /* Consistent styling for all primary action buttons */
+    .btn-primary {
+        background-color: #c1121f !important;
+        border-color: #c1121f !important;
+        transition: all 0.3s ease;
+    }
+
+    .btn-primary:hover {
+        background-color: #a10e1a !important;
+        border-color: #a10e1a !important;
+        transform: translateY(-2px);
+        box-shadow: 0 4px 8px rgba(193, 18, 31, 0.3);
+    }
+
+    /* Ensure consistent styling for continue buttons */
+    .continue-confirmation-btn {
+        background-color: #c1121f !important;
+        border-color: #c1121f !important;
+    }
 </style>
 </head>
 <body>
-<!-- Navigation bar removed - keeping only the first one -->
 
 <!-- Booking Section -->
 <div class="mm-booking-container">
     <h1 class="text-center mb-4">Select a Vehicle</h1>
     
     <div class="mm-step-indicator">
-        <div class="mm-step active">
+        <div class="mm-step active" id="step1">
             <div class="mm-step-number">1</div>
             <div class="mm-step-title">Choose Car</div>
         </div>
-        <div class="mm-step">
+        <div class="mm-step" id="step2">
             <div class="mm-step-number">2</div>
             <div class="mm-step-title">Trip Details</div>
         </div>
-        <div class="mm-step">
+        <div class="mm-step" id="step3">
             <div class="mm-step-number">3</div>
             <div class="mm-step-title">Personal info</div>
         </div>
-        <div class="mm-step">
+        <div class="mm-step" id="step4">
             <div class="mm-step-number">4</div>
             <div class="mm-step-title">Confirmation</div>
         </div>
@@ -365,31 +358,120 @@
     <div class="mm-vehicle-section">
         <div class="mm-vehicle-grid">
             <div class="mm-vehicle-card">
-                <h3 class="mm-vehicle-name">Toyota Corolla</h3>
-                <div class="mm-vehicle-type">Sedan • 5 seats</div>
-                <div class="mm-vehicle-price">Rs5000/day</div>
-                <button class="mm-btn-select">Select This Car</button>
+                <img src="{{ asset('images/corolla.jpg') }}" alt="Toyota Corolla" class="mm-vehicle-image">
+                <div class="mm-vehicle-content">
+                    <h3 class="mm-vehicle-name">Toyota Corolla</h3>
+                    <div class="mm-vehicle-type">Sedan • 5 seats • Automatic</div>
+                    <div class="mm-vehicle-details">
+                        <div class="mm-detail-item">
+                            <i class="fas fa-gas-pump"></i> Petrol
+                        </div>
+                        <div class="mm-detail-item">
+                            <i class="fas fa-snowflake"></i> AC
+                        </div>
+                        <div class="mm-detail-item">
+                            <i class="fas fa-bluetooth"></i> Bluetooth
+                        </div>
+                        <div class="mm-detail-item">
+                            <i class="fas fa-shield-alt"></i> Airbags
+                        </div>
+                    </div>
+                    <div class="mm-vehicle-price">Rs5,000/day</div>
+                    <div class="mm-vehicle-features">
+                        <span class="mm-feature-badge">GPS</span>
+                        <span class="mm-feature-badge">Insurance</span>
+                        <span class="mm-feature-badge">24/7 Support</span>
+                    </div>
+                    <button class="mm-btn-select">Select This Car</button>
+                </div>
             </div>
             
             <div class="mm-vehicle-card">
-                <h3 class="mm-vehicle-name">Suzuki Swift</h3>
-                <div class="mm-vehicle-type">Hatchback • 5 seats</div>
-                <div class="mm-vehicle-price">Rs3500/day</div>
-                <button class="mm-btn-select">Select This Car</button>
+                <img src="{{ asset('images/Swift.jpg') }}" alt="Suzuki Swift" class="mm-vehicle-image">
+                <div class="mm-vehicle-content">
+                    <h3 class="mm-vehicle-name">Suzuki Swift</h3>
+                    <div class="mm-vehicle-type">Hatchback • 5 seats • Manual</div>
+                    <div class="mm-vehicle-details">
+                        <div class="mm-detail-item">
+                            <i class="fas fa-gas-pump"></i> Petrol
+                        </div>
+                        <div class="mm-detail-item">
+                            <i class="fas fa-snowflake"></i> AC
+                        </div>
+                        <div class="mm-detail-item">
+                            <i class="fas fa-bluetooth"></i> Bluetooth
+                        </div>
+                        <div class="mm-detail-item">
+                            <i class="fas fa-shield-alt"></i> Airbags
+                        </div>
+                    </div>
+                    <div class="mm-vehicle-price">Rs3,500/day</div>
+                    <div class="mm-vehicle-features">
+                        <span class="mm-feature-badge">GPS</span>
+                        <span class="mm-feature-badge">Insurance</span>
+                        <span class="mm-feature-badge">24/7 Support</span>
+                    </div>
+                    <button class="mm-btn-select">Select This Car</button>
+                </div>
             </div>
             
             <div class="mm-vehicle-card">
-                <h3 class="mm-vehicle-name">Honda Civic</h3>
-                <div class="mm-vehicle-type">Sedan • 5 seats</div>
-                <div class="mm-vehicle-price">Rs4500/day</div>
-                <button class="mm-btn-select">Select This Car</button>
+                <img src="{{ asset('images/Civic.jpg') }}" alt="Honda Civic" class="mm-vehicle-image">
+                <div class="mm-vehicle-content">
+                    <h3 class="mm-vehicle-name">Honda Civic</h3>
+                    <div class="mm-vehicle-type">Sedan • 5 seats • Automatic</div>
+                    <div class="mm-vehicle-details">
+                        <div class="mm-detail-item">
+                            <i class="fas fa-gas-pump"></i> Petrol
+                        </div>
+                        <div class="mm-detail-item">
+                            <i class="fas fa-snowflake"></i> AC
+                        </div>
+                        <div class="mm-detail-item">
+                            <i class="fas fa-bluetooth"></i> Bluetooth
+                        </div>
+                        <div class="mm-detail-item">
+                            <i class="fas fa-shield-alt"></i> Airbags
+                        </div>
+                    </div>
+                    <div class="mm-vehicle-price">Rs4,500/day</div>
+                    <div class="mm-vehicle-features">
+                        <span class="mm-feature-badge">GPS</span>
+                        <span class="mm-feature-badge">Insurance</span>
+                        <span class="mm-feature-badge">24/7 Support</span>
+                    </div>
+                    <button class="mm-btn-select">Select This Car</button>
+                </div>
             </div>
             
             <div class="mm-vehicle-card">
-                <h3 class="mm-vehicle-name">Toyota Fortuner</h3>
-                <div class="mm-vehicle-type">SUV • 7 seats</div>
-                <div class="mm-vehicle-price">Rs15000/day</div>
-                <button class="mm-btn-select">Select This Car</button>
+                <img src="{{ asset('images/Fortuner.jpg') }}" alt="Toyota Fortuner" class="mm-vehicle-image">
+                <div class="mm-vehicle-content">
+                    <h3 class="mm-vehicle-name">Toyota Fortuner</h3>
+                    <div class="mm-vehicle-type">SUV • 7 seats • Automatic</div>
+                    <div class="mm-vehicle-details">
+                        <div class="mm-detail-item">
+                            <i class="fas fa-gas-pump"></i> Diesel
+                        </div>
+                        <div class="mm-detail-item">
+                            <i class="fas fa-snowflake"></i> Dual AC
+                        </div>
+                        <div class="mm-detail-item">
+                            <i class="fas fa-bluetooth"></i> Bluetooth
+                        </div>
+                        <div class="mm-detail-item">
+                            <i class="fas fa-shield-alt"></i> Airbags
+                        </div>
+                    </div>
+                    <div class="mm-vehicle-price">Rs15,000/day</div>
+                    <div class="mm-vehicle-features">
+                        <span class="mm-feature-badge">GPS</span>
+                        <span class="mm-feature-badge">Insurance</span>
+                        <span class="mm-feature-badge">24/7 Support</span>
+                        <span class="mm-feature-badge">4WD</span>
+                    </div>
+                    <button class="mm-btn-select">Select This Car</button>
+                </div>
             </div>
         </div>
     </div>
@@ -429,6 +511,184 @@
             <div>
                 <p class="mb-0">Call Us</p>
                 <h6 class="mb-0">+92-324-867000</h6>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Trip Details Section -->
+<div class="mm-trip-details" id="tripDetailsSection" style="display: none;">
+    <div class="mm-booking-container">
+        <h2 class="mm-section-title">Trip Details</h2>
+        
+        <div class="row">
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-header">
+                        <h5>Pickup Information</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="mb-3">
+                            <label for="pickupLocation" class="form-label">Pickup Location</label>
+                            <input type="text" class="form-control" id="pickupLocation" placeholder="Enter pickup location">
+                        </div>
+                        <div class="mb-3">
+                            <label for="pickupDate" class="form-label">Pickup Date</label>
+                            <input type="date" class="form-control" id="pickupDate">
+                        </div>
+                        <div class="mb-3">
+                            <label for="pickupTime" class="form-label">Pickup Time</label>
+                            <input type="time" class="form-control" id="pickupTime">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-header">
+                        <h5>Return Information</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="mb-3">
+                            <label for="returnLocation" class="form-label">Return Location</label>
+                            <input type="text" class="form-control" id="returnLocation" placeholder="Enter return location">
+                        </div>
+                        <div class="mb-3">
+                            <label for="returnDate" class="form-label">Return Date</label>
+                            <input type="date" class="form-control" id="returnDate">
+                        </div>
+                        <div class="mb-3">
+                            <label for="returnTime" class="form-label">Return Time</label>
+                            <input type="time" class="form-control" id="returnTime">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="row mt-4">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h5>Selected Vehicle</h5>
+                    </div>
+                    <div class="card-body">
+                        <div id="selectedVehicleDetails">
+                            <!-- Vehicle details will be populated here -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="row mt-4">
+            <div class="col-12 text-center">
+                <button class="btn btn-secondary me-2" onclick="goBackToVehicles()">Back to Vehicles</button>
+                <button class="btn btn-primary" style="background-color: #c1121f; border-color: #c1121f;" onclick="proceedToPersonalInfo()">Continue to Personal Info</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Personal Details Section -->
+<div class="mm-personal-info" id="personalInfoSection" style="display: none;">
+    <div class="mm-booking-container">
+        <h2 class="mm-section-title">Personal Details</h2>
+        
+        <div class="row">
+            <div class="col-lg-8 mx-auto">
+                <div class="card">
+                    <div class="card-header">
+                        <h5>Contact Information</h5>
+                    </div>
+                    <div class="card-body">
+                        <form id="personalDetailsForm">
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <label for="fullName" class="form-label">Full Name *</label>
+                                    <input type="text" class="form-control" id="fullName" name="fullName" required>
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <label for="email" class="form-label">Email Address *</label>
+                                    <input type="email" class="form-control" id="email" name="email" required>
+                                </div>
+                            </div>
+                            
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <label for="phone" class="form-label">Phone Number *</label>
+                                    <input type="tel" class="form-control" id="phone" name="phone" required>
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <label for="cnic" class="form-label">CNIC Number *</label>
+                                    <input type="text" class="form-control" id="cnic" name="cnic" placeholder="XXXXX-XXXXXXX-X" required>
+                                </div>
+                            </div>
+                            
+                            <div class="mb-3">
+                                <label for="address" class="form-label">Address *</label>
+                                <textarea class="form-control" id="address" name="address" rows="3" required></textarea>
+                            </div>
+                            
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <label for="city" class="form-label">City *</label>
+                                    <input type="text" class="form-control" id="city" name="city" required>
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <label for="zipCode" class="form-label">ZIP Code *</label>
+                                    <input type="text" class="form-control" id="zipCode" name="zipCode" required>
+                                </div>
+                            </div>
+                            
+                            <div class="mb-3">
+                                <label for="drivingLicense" class="form-label">Driving License Number *</label>
+                                <input type="text" class="form-control" id="drivingLicense" name="drivingLicense" required>
+                            </div>
+                            
+                            <div class="mb-3">
+                                <label for="licenseExpiry" class="form-label">License Expiry Date *</label>
+                                <input type="date" class="form-control" id="licenseExpiry" name="licenseExpiry" required>
+                            </div>
+                            
+                            <div class="mb-3">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" id="termsAgreement" required>
+                                    <label class="form-check-label" for="termsAgreement">
+                                        I agree to the <a href="#" data-bs-toggle="modal" data-bs-target="#termsModal">Terms and Conditions</a>
+                                    </label>
+                                </div>
+                            </div>
+                            
+                            <div class="mb-3">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" id="ageConfirmation" required>
+                                    <label class="form-check-label" for="ageConfirmation">
+                                        I confirm that I am 21 years or older and have a valid driving license
+                                    </label>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                
+                <div class="card mt-4">
+                    <div class="card-header">
+                        <h5>Additional Information</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="mb-3">
+                            <label for="specialRequests" class="form-label">Special Requests or Notes</label>
+                            <textarea class="form-control" id="specialRequests" name="specialRequests" rows="3" placeholder="Any special requirements or notes..."></textarea>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="text-center mt-4">
+                    <button class="btn btn-secondary me-2" onclick="goBackToTripDetails()">Back to Trip Details</button>
+                    <button class="btn btn-primary continue-confirmation-btn" style="background-color: #c1121f; border-color: #c1121f;" onclick="proceedToConfirmation()">Continue to Confirmation</button>
+                </div>
             </div>
         </div>
     </div>
@@ -526,20 +786,175 @@
     });
 </script>
 
-  <script>
-    document.addEventListener('DOMContentLoaded', function() {
-        // Close registration modal and open login modal
-        document.querySelector('[data-bs-target="#loginModal"]').addEventListener('click', function() {
-            var registrationModal = bootstrap.Modal.getInstance(document.getElementById('registrationModal'));
-            registrationModal.hide();
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Close registration modal and open login modal
+            document.querySelector('[data-bs-target="#loginModal"]').addEventListener('click', function() {
+                var registrationModal = bootstrap.Modal.getInstance(document.getElementById('registrationModal'));
+                registrationModal.hide();
+            });
+            
+            // Close login modal and open registration modal
+            document.querySelector('[data-bs-target="#registrationModal"]').addEventListener('click', function() {
+                var loginModal = bootstrap.Modal.getInstance(document.getElementById('loginModal'));
+                loginModal.hide();
+            });
+
+            // Set today's date as minimum for date inputs
+            const today = new Date().toISOString().split('T')[0];
+            document.getElementById('pickupDate').setAttribute('min', today);
+            document.getElementById('returnDate').setAttribute('min', today);
         });
-        
-        // Close login modal and open registration modal
-        document.querySelector('[data-bs-target="#registrationModal"]').addEventListener('click', function() {
-            var loginModal = bootstrap.Modal.getInstance(document.getElementById('loginModal'));
-            loginModal.hide();
+
+        // Function to select a car and show trip details
+        function selectCar(carName, carType, carPrice, carImage) {
+            // Hide vehicle selection section
+            document.querySelector('.mm-vehicle-section').style.display = 'none';
+            document.querySelector('.mm-features-section').style.display = 'none';
+            document.querySelector('.mm-divider').style.display = 'none';
+            document.querySelector('.mm-help-section').style.display = 'none';
+            
+            // Update step indicators
+            document.getElementById('step1').classList.remove('active');
+            document.getElementById('step2').classList.add('active');
+            
+            // Show trip details section
+            document.getElementById('tripDetailsSection').style.display = 'block';
+            
+            // Populate selected vehicle details
+            const vehicleDetails = document.getElementById('selectedVehicleDetails');
+            vehicleDetails.innerHTML = `
+                <div class="row">
+                    <div class="col-md-4">
+                        <img src="${carImage}" alt="${carName}" class="mm-vehicle-image" style="height: 150px;">
+                    </div>
+                    <div class="col-md-8">
+                        <h4>${carName}</h4>
+                        <p class="text-muted">${carType}</p>
+                        <h5 class="text-danger">${carPrice}</h5>
+                    </div>
+                </div>
+            `;
+            
+            // Scroll to top
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // Function to go back to vehicle selection
+        function goBackToVehicles() {
+            // Hide trip details section
+            document.getElementById('tripDetailsSection').style.display = 'none';
+            
+            // Update step indicators
+            document.getElementById('step2').classList.remove('active');
+            document.getElementById('step1').classList.add('active');
+            
+            // Show vehicle selection section
+            document.querySelector('.mm-vehicle-section').style.display = 'block';
+            document.querySelector('.mm-features-section').style.display = 'block';
+            document.querySelector('.mm-divider').style.display = 'block';
+            document.querySelector('.mm-help-section').style.display = 'block';
+            
+            // Scroll to top
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // Function to proceed to personal info
+        function proceedToPersonalInfo() {
+            // Validate trip details
+            const pickupLocation = document.getElementById('pickupLocation').value;
+            const pickupDate = document.getElementById('pickupDate').value;
+            const pickupTime = document.getElementById('pickupTime').value;
+            const returnLocation = document.getElementById('returnLocation').value;
+            const returnDate = document.getElementById('returnDate').value;
+            const returnTime = document.getElementById('returnTime').value;
+
+            if (!pickupLocation || !pickupDate || !pickupTime || !returnLocation || !returnDate || !returnTime) {
+                alert('Please fill in all required fields before proceeding.');
+                return;
+            }
+
+            // Validate dates
+            const pickup = new Date(pickupDate + 'T' + pickupTime);
+            const returnD = new Date(returnDate + 'T' + returnTime);
+            
+            if (returnD <= pickup) {
+                alert('Return date and time must be after pickup date and time.');
+                return;
+            }
+
+            // Hide trip details section
+            document.getElementById('tripDetailsSection').style.display = 'none';
+            
+            // Update step indicators
+            document.getElementById('step2').classList.remove('active');
+            document.getElementById('step3').classList.add('active');
+            
+            // Show personal info section
+            document.getElementById('personalInfoSection').style.display = 'block';
+            
+            // Scroll to top
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // Function to go back to trip details
+        function goBackToTripDetails() {
+            // Hide personal info section
+            document.getElementById('personalInfoSection').style.display = 'none';
+            
+            // Update step indicators
+            document.getElementById('step3').classList.remove('active');
+            document.getElementById('step2').classList.add('active');
+            
+            // Show trip details section
+            document.getElementById('tripDetailsSection').style.display = 'block';
+            
+            // Scroll to top
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // Function to proceed to confirmation
+        function proceedToConfirmation() {
+            // Validate personal info
+            const fullName = document.getElementById('fullName').value;
+            const email = document.getElementById('email').value;
+            const phone = document.getElementById('phone').value;
+            const address = document.getElementById('address').value;
+
+            if (!fullName || !email || !phone || !address) {
+                alert('Please fill in all required fields before proceeding.');
+                return;
+            }
+
+            // Hide personal info section
+            document.getElementById('personalInfoSection').style.display = 'none';
+            
+            // Update step indicators
+            document.getElementById('step3').classList.remove('active');
+            document.getElementById('step4').classList.add('active');
+            
+            // Show confirmation section
+            document.getElementById('confirmationSection').style.display = 'block';
+            
+            // Scroll to top
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // Add click event listeners to all select buttons
+        document.addEventListener('DOMContentLoaded', function() {
+            const selectButtons = document.querySelectorAll('.mm-btn-select');
+            selectButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    const card = this.closest('.mm-vehicle-card');
+                    const carName = card.querySelector('.mm-vehicle-name').textContent;
+                    const carType = card.querySelector('.mm-vehicle-type').textContent;
+                    const carPrice = card.querySelector('.mm-vehicle-price').textContent;
+                    const carImage = card.querySelector('.mm-vehicle-image').src;
+                    
+                    selectCar(carName, carType, carPrice, carImage);
+                });
+            });
         });
-    });
     </script>
 
   </body>

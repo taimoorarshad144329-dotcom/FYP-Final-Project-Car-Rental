@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\AuthController;
 
 // Main routes
 Route::get('/', function () {
@@ -27,6 +28,15 @@ Route::get('/contact-us', function () {
 Route::get('/rent-now', function () {
     return view('rentnow');
 });
+
+// Account route
+Route::get('/my-account', function () {
+    return view('my-account');
+})->name('my-account');
+
+// Authentication routes
+Route::post('/login', [AuthController::class, 'login'])->name('login');
+Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
 // Additional routes
 Route::get('/malik-motors', function () {
